@@ -1,0 +1,30 @@
+version: '3'
+
+networks:
+  saltnet:
+
+services:
+  minion:
+    image: saltsni
+    build: .
+    hostname: minion.nosni
+    environment:
+      SALT_TRANSPORT: tcp
+      SALT_MASTER_ID: master.nosni
+    networks:
+      saltnet:
+        aliases:
+          - minion.nosni
+  
+  master:
+    image: saltsni
+    build: .
+    hostname: master.nosni
+    environment:
+      SALT_MASTER: enabled
+      SALT_TRANSPORT: tcp
+      SALT_MASTER_ID: master.nosni
+    networks:
+      saltnet:
+        aliases:
+          - master.nosni
