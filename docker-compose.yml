@@ -7,24 +7,26 @@ services:
   minion:
     image: saltsni
     build: .
-    hostname: minion.nosni
+    hostname: minion.saltnet.tls
     environment:
       SALT_TRANSPORT: tcp
-      SALT_MASTER_ID: master.nosni
+      SALT_TRANSPORT_TLS: enabled
+      SALT_MASTER_ID: master.saltnet.tls
     networks:
       saltnet:
         aliases:
-          - minion.nosni
+          - minion.saltnet.tls
   
   master:
     image: saltsni
     build: .
-    hostname: master.nosni
+    hostname: master.saltnet.tls
     environment:
       SALT_MASTER: enabled
       SALT_TRANSPORT: tcp
-      SALT_MASTER_ID: master.nosni
+      SALT_TRANSPORT_TLS: enabled
+      SALT_MASTER_ID: master.saltnet.tls
     networks:
       saltnet:
         aliases:
-          - master.nosni
+          - master.saltnet.tls

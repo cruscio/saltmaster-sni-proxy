@@ -4,6 +4,7 @@ LABEL maintainer="Chris Ruscio <chris.ruscio@allscripts.com>"
 
 ENV SALT_LOG_LEVEL=debug
 
+# Install Salt
 RUN apk add --no-cache openssl tini salt-master salt-minion \
  ## https://github.com/saltstack/salt/issues/47006
  && rm /usr/lib/python3.6/site-packages/salt/grains/__pycache__/*opt-1* \
@@ -14,6 +15,12 @@ RUN apk add --no-cache openssl tini salt-master salt-minion \
 # COPY tcp.py.patch /tcp.py.patch
 # RUN patch /usr/lib/python3.6/site-packages/salt/transport/tcp.py -i tcp.py.patch \
 #  && rm /tcp.py.patch
+
+#Install CA/Certs
+COPY ./tls /etc/tls
+RUN cp /etc/tls/saltnet_ca.crt /usr/local/share/ca-certificates/ \
+ && chmod 644 /usr/local/share/ca-certificates/saltnet_ca.crt \
+ && update-ca-certificates
 
 COPY run.sh /usr/bin/run.sh
 RUN  chmod +x /usr/bin/run.sh

@@ -4,8 +4,8 @@
 echo "transport: ${SALT_TRANSPORT:-tcp}" > /etc/salt/master.d/transport.conf
 if [[ "$SALT_TRANSPORT_TLS" = "enabled" ]]; then
   echo "ssl:" >> /etc/salt/master.d/transport.conf
-  echo "  keyfile: /etc/tls/privkey.pem" >> /etc/salt/master.d/transport.conf
-  echo "  certfile: /etc/tls/fullchain.pem" >> /etc/salt/master.d/transport.conf
+  echo "  keyfile: /etc/tls/master.key" >> /etc/salt/master.d/transport.conf
+  echo "  certfile: /etc/tls/master_fullchain.crt" >> /etc/salt/master.d/transport.conf
   echo "  ssl_version: PROTOCOL_TLSv1_2" >> /etc/salt/master.d/transport.conf
 fi
 if [[ "$SALT_TRANSPORT_SNIOPTS" = "enabled" ]]; then
