@@ -4,19 +4,7 @@ networks:
   saltnet:
 
 services:
-  minion:
-    image: saltsni
-    build: .
-    hostname: minion.saltnet.tls
-    environment:
-      SALT_TRANSPORT: tcp
-      SALT_TRANSPORT_TLS: enabled
-      SALT_MASTER_ID: master.saltnet.tls
-    networks:
-      saltnet:
-        aliases:
-          - minion.saltnet.tls
-  
+
   master:
     image: saltsni
     build: .
@@ -30,3 +18,31 @@ services:
       saltnet:
         aliases:
           - master.saltnet.tls
+          
+  minion01:
+    image: saltsni
+    build: .
+    hostname: minion01.saltnet.tls
+    environment:
+      SALT_TRANSPORT: tcp
+      SALT_TRANSPORT_TLS: enabled
+      SALT_MASTER_ID: master.saltnet.tls
+    networks:
+      saltnet:
+        aliases:
+          - minion.saltnet.tls
+  
+  minion02:
+    image: saltsni
+    build: .
+    hostname: minion02.saltnet.tls
+    environment:
+      SALT_TRANSPORT: tcp
+      SALT_TRANSPORT_TLS: enabled
+      SALT_MASTER_ID: master.saltnet.tls
+    command: sleep infinity
+    networks:
+      saltnet:
+        aliases:
+          - minion.saltnet.tls
+
