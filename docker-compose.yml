@@ -40,7 +40,7 @@ services:
       SALT_TRANSPORT: tcp
       SALT_TRANSPORT_TLS: enabled
       SALT_MASTER_ID: master.saltnet.tls
-    command: sleep infinity
+    command: tail -f /dev/null
     networks:
       saltnet:
         aliases:
